@@ -1,0 +1,1 @@
+const jwt=require('jsonwebtoken');module.exports=(q,s,n)=>{let h=q.headers.authorization||'',t=h.startsWith('Bearer ')?h.slice(7):'';if(!t)return s.status(401).json({error:'Please sign in first'});try{q.userId=jwt.verify(t,process.env.JWT_SECRET).userId;n()}catch{return s.status(401).json({error:'Session expired or invalid'})}};
